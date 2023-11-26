@@ -9,6 +9,16 @@
 
 import 'package:flutter/widgets.dart';
 
+class $AssetsIconsGen {
+  const $AssetsIconsGen();
+
+  /// File path: assets/icons/github.png
+  AssetGenImage get github => const AssetGenImage('assets/icons/github.png');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [github];
+}
+
 class $AssetsMetaGen {
   const $AssetsMetaGen();
 
@@ -22,6 +32,7 @@ class $AssetsMetaGen {
 class Assets {
   Assets._();
 
+  static const $AssetsIconsGen icons = $AssetsIconsGen();
   static const $AssetsMetaGen meta = $AssetsMetaGen();
 }
 

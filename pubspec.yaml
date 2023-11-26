@@ -3,7 +3,7 @@ description: "Library for weebs"
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.0+1
+version: 0.1.0+1
 
 environment:
   sdk: '>=3.2.0 <4.0.0'
@@ -22,13 +22,17 @@ dependencies:
   riverpod_annotation: ^2.3.1
   dio: ^5.3.3
   google_fonts: ^6.1.0
-  extended_image: ^8.1.0
+  extended_image: ^8.2.0
   freezed_annotation: ^2.4.1
   json_annotation: ^4.8.1
   logger: ^2.0.2+1
   device_preview: ^1.1.0
   pretty_dio_logger: ^1.3.1
   flutter_animate: ^4.2.0+1
+  scrollable_positioned_list: ^0.3.8
+  shared_preferences: ^2.2.2
+  liquid_page: ^0.0.1
+  url_launcher: ^6.2.1
 
 dev_dependencies:
   flutter_test:

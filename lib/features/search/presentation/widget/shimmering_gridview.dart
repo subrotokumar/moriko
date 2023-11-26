@@ -3,9 +3,7 @@ import 'package:moriko/config/theme/colors.dart';
 import 'package:moriko/core/core.dart';
 
 class ShimmeringGridView extends StatelessWidget {
-  const ShimmeringGridView({
-    super.key,
-  });
+  const ShimmeringGridView({super.key});
 
   @override
   Widget build(BuildContext context) {

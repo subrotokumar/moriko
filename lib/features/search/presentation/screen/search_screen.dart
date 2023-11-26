@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moriko/config/config.dart';
 import 'package:moriko/core/core.dart';
-import 'package:moriko/core/providers/provider.dart';
 import 'package:moriko/features/search/presentation/widget/cover_image.dart';
 import 'package:moriko/features/search/presentation/widget/shimmering_gridview.dart';
 import 'package:moriko/features/search/provider/searched_manga.provider.dart';
+import 'package:moriko/features/shared/presentation/widgets/nav_bar.dart';
 import 'package:moriko/model/searched_manga_res.dart';
 
 class SearchScreen extends ConsumerStatefulWidget {
@@ -16,63 +16,72 @@ class SearchScreen extends ConsumerStatefulWidget {
 }
 
 class _SearchScreenState extends ConsumerState<SearchScreen> {
-  final searchCtr = TextEditingController();
+  final searchCtr = TextEditingController(text: 'naruto');
   @override
   Widget build(BuildContext context) {
     final theme = context.theme;
     return Scaffold(
-      bottomNavigationBar: SizedBox(
-        height: 50,
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20)
-                    .copyWith(top: 10),
-                height: 50,
-                color: theme.bottomNavigationBarTheme.backgroundColor,
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    const Spacer(),
-                    Consumer(builder: (context, ref, child) {
-                      final themeMode = ref.watch(currentThemeProvider);
-                      return Visibility(
-                        visible: themeMode != ThemeMode.system,
-                        child: Switch(
-                          value: themeMode == ThemeMode.light,
-                          onChanged: (v) {
-                            ref.read(currentThemeProvider.notifier).toggle();
-                          },
-                        ),
-                      );
-                    }),
-                  ],
-                ),
-              ),
-            ),
-            Positioned(
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 40,
-              child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                alignment: Alignment.topCenter,
-                height: 10,
-                decoration: BoxDecoration(
-                  color: theme.scaffoldBackgroundColor,
-                  borderRadius: const BorderRadius.vertical(
-                    bottom: Radius.circular(10),
+      bottomNavigationBar: true
+          ? const BottomNavBar()
+          // ignore: dead_code
+          : SizedBox(
+              height: 50,
+              child: Stack(
+                children: [
+                  Positioned.fill(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20)
+                          .copyWith(top: 10),
+                      height: 50,
+                      color: theme.bottomNavigationBarTheme.backgroundColor,
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Spacer(),
+                          Consumer(builder: (context, ref, child) {
+                            final themeMode = ref.watch(currentThemeProvider);
+                            return Visibility(
+                              visible: themeMode != ThemeMode.system,
+                              child: Switch(
+                                value: themeMode == ThemeMode.light,
+                                onChanged: (v) {
+                                  ref
+                                      .read(currentThemeProvider.notifier)
+                                      .toggle();
+                                },
+                              ),
+                            );
+                          }),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 40,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      alignment: Alignment.topCenter,
+                      height: 10,
+                      decoration: BoxDecoration(
+                        color: theme.scaffoldBackgroundColor,
+                        borderRadius: const BorderRadius.vertical(
+                          bottom: Radius.circular(10),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
-      ),
       appBar: AppBar(
-        leading: const Icon(Icons.arrow_back_rounded),
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 20),
+          child: Assets.meta.logo.image(),
+        ),
+        leadingWidth: 50,
         title: TextField(
           onSubmitted: (_) => setState(() {}),
           onTapOutside: (_) => context.removeFocus(),

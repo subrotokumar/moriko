@@ -5,7 +5,7 @@ part 'manga_cover_res.g.dart';
 @freezed
 class MangaCoverResponse with _$MangaCoverResponse {
   const factory MangaCoverResponse({
-    required String result,
+    required String? result,
     required String response,
     required MangaCoverResponseData data,
   }) = _MangaCoverResponse;
@@ -18,7 +18,7 @@ class MangaCoverResponse with _$MangaCoverResponse {
 class MangaCoverResponseData with _$MangaCoverResponseData {
   const factory MangaCoverResponseData({
     required String id,
-    required String type,
+    required String? type,
     required CoverAttribute attributes,
   }) = _MangaCoverResponseData;
 

@@ -29,4 +29,4 @@ class AppTheme {
       );
 }
 
-final poppins = GoogleFonts.poppins;
+const poppins = GoogleFonts.poppins;

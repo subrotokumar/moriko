@@ -7,12 +7,12 @@ part 'searched_manga_res.g.dart';
 @freezed
 class SearchedMangaRes with _$SearchedMangaRes {
   const factory SearchedMangaRes({
-    required String result,
-    required String response,
+    required String? result,
+    required String? response,
     required List<SearchedManga> data,
-    required int limit,
-    required int offset,
-    required int total,
+    required int? limit,
+    required int? offset,
+    required int? total,
   }) = _SearchedMangaRes;
 
   factory SearchedMangaRes.fromJson(Map<String, dynamic> json) =>
@@ -48,24 +48,24 @@ class SearchedMangaAttributes with _$SearchedMangaAttributes {
   const factory SearchedMangaAttributes({
     required Title title,
     required List<AltTitle> altTitles,
-    required PurpleDescription description,
-    required bool isLocked,
+    required PurpleDescription? description,
+    required bool? isLocked,
     required Links? links,
     required String originalLanguage,
     required String? lastVolume,
     required String? lastChapter,
     required String? publicationDemographic,
-    required Status status,
+    required Status? status,
     required int? year,
-    required ContentRating contentRating,
+    required ContentRating? contentRating,
     required List<Tag> tags,
-    required State state,
-    required bool chapterNumbersResetOnNewVolume,
-    required DateTime createdAt,
-    required DateTime updatedAt,
-    required int version,
-    required List<String> availableTranslatedLanguages,
-    required String latestUploadedChapter,
+    required State? state,
+    required bool? chapterNumbersResetOnNewVolume,
+    required DateTime? createdAt,
+    required DateTime? updatedAt,
+    required int? version,
+    required List<String>? availableTranslatedLanguages,
+    required String? latestUploadedChapter,
   }) = _SearchedMangaAttributes;
 
   factory SearchedMangaAttributes.fromJson(Map<String, dynamic> json) =>

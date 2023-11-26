@@ -15,9 +15,19 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    init();
+  }
+
+  init() async {
+    try {
+      await ref.read(sharedPrefProvider.future);
+      ref.read(sharedPrefProvider).requireValue;
+    } catch (e) {
+      logger.e(e);
+    }
     Future.delayed(
-      4.seconds,
-      () => SearchScreenRoute().pushReplacement(context),
+      2.seconds,
+      () => HomeScreenRoute().pushReplacement(context),
     );
   }
 
