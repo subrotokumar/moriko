@@ -26,7 +26,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       logger.e(e);
     }
     Future.delayed(
-      3.seconds,
+      3000.milliseconds,
       () => HomeScreenRoute().pushReplacement(context),
     );
   }
@@ -38,7 +38,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       body: Center(
         child: TweenAnimationBuilder(
           tween: Tween<double>(begin: 0, end: 150),
-          duration: 2.seconds,
+          duration: 1500.milliseconds,
           builder: (context, value, child) {
             return SizedBox(
               height: 150,
@@ -62,10 +62,11 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
                         style: poppins(
                           fontSize: 22.5,
                           fontWeight: FontWeight.bold,
+                          color: Colors.white,
                         ),
                       ),
                     ),
-                  ).animate().scale(duration: 1.seconds),
+                  ).animate().scale(duration: 1000.milliseconds),
                 ],
               ),
             );

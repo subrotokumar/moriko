@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:phosphor_flutter/phosphor_flutter.dart';
+import 'package:moriko/features/reader/presentation/widgets/reader_appbar.dart';
 
 import 'package:moriko/core/core.dart';
 import 'package:moriko/features/reader/presentation/widgets/horizontal_reader.dart';
@@ -47,9 +47,10 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                     ref.watch(readerScrollDirectionProvider);
                 return chapterPages.when(
                   error: (e, s) {
-                    return const Center(
-                      child: Text(
-                        'Request returned an Invalid staus code of 404',
+                    return Center(
+                      child: OutlinedButton(
+                        onPressed: () => context.pop(),
+                        child: const Text('Go Back'),
                       ),
                     );
                   },
@@ -171,38 +172,5 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
         ],
       ),
     );
-  }
-}
-
-class ReaderAppBar extends StatelessWidget {
-  const ReaderAppBar({
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Consumer(builder: (context, ref, child) {
-      final visible = ref.watch(bottomNavVisibiltyProvider);
-      final theme = context.theme;
-      return GestureDetector(
-        onTap: () => ref.read(bottomNavVisibiltyProvider.notifier).toogle(),
-        child: Visibility(
-          visible: visible,
-          child: AppBar(
-            backgroundColor: theme.appBarTheme.backgroundColor,
-            leading: IconButton(
-              onPressed: () => context.pop(),
-              icon: const Icon(PhosphorIconsBold.arrowUpLeft),
-            ),
-            actions: [
-              IconButton(
-                onPressed: () {},
-                icon: const Icon(PhosphorIconsRegular.bookmarks),
-              )
-            ],
-          ),
-        ),
-      );
-    });
   }
 }

@@ -37,7 +37,7 @@ class _VerticleReaderState extends ConsumerState<VerticleReader> {
             child: ExtendedImage.network(
               '$baseUrl/${dataSavedEnabled ? 'data-saver' : 'data'}/$hash/${data.elementAt(index)}',
               width: width,
-              enableSlideOutPage: true,
+              // enableSlideOutPage: true,
             ),
           );
         },

@@ -230,7 +230,9 @@ class ChaptersScreenState extends ConsumerState<ChaptersScreen> {
                     );
                     return Container(
                       margin: const EdgeInsets.symmetric(
-                          horizontal: 20, vertical: 8),
+                        horizontal: 20,
+                        vertical: 8,
+                      ),
                       child: ListTile(
                         dense: true,
                         tileColor: isDarkMode ? Colors.white12 : Colors.white,
@@ -239,7 +241,9 @@ class ChaptersScreenState extends ConsumerState<ChaptersScreen> {
                         ),
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
-                            builder: (ctx) => ReaderScreen(chapterItem.id),
+                            builder: (ctx) => ReaderScreen(
+                              chapterItem.id,
+                            ),
                           ));
                         },
                         leading: Text(
@@ -271,11 +275,11 @@ class ChaptersScreenState extends ConsumerState<ChaptersScreen> {
                             return Text(d.substring(0, d.indexOf(' ')));
                           }
                         }),
-                        trailing: Icon(
-                          Icons.downloading,
-                          size: 25,
-                          color: theme.inputDecorationTheme.fillColor,
-                        ),
+                        // trailing: Icon(
+                        //   Icons.downloading,
+                        //   size: 25,
+                        //   color: theme.inputDecorationTheme.fillColor,
+                        // ),
                       ),
                     );
                   },

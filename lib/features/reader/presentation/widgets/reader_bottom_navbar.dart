@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moriko/core/core.dart';
 import 'package:moriko/features/reader/provider/provider.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class ReaderBottomNavBar extends ConsumerWidget {
   const ReaderBottomNavBar({super.key});
@@ -46,13 +47,14 @@ class ReaderBottomNavBar extends ConsumerWidget {
                     child: Text(camelCaseToSentence(item.name)),
                   ),
               ],
+              child: Icon(PhosphorIcons.squaresFour()),
             ),
             IconButton(
               onPressed: () =>
                   ref.read(horizontalBoxFitProvider.notifier).toogle(),
               icon: Transform.rotate(
                 angle: horizontalBoxFit == BoxFit.fitHeight ? pi * .5 : 0,
-                child: const Icon(Icons.expand_outlined),
+                child: Icon(PhosphorIcons.frameCorners()),
               ),
             )
           ],

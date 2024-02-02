@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:moriko/features/chapters/presentation/screen/chapters_screen.dart';
 import 'package:moriko/features/home/presentaion/screen/home_screen.dart';
 import 'package:moriko/features/library/presentation/library_screen.dart';
+import 'package:moriko/features/more/presentation/screen/history_screen.dart';
 import 'package:moriko/features/more/presentation/screen/more_screen.dart';
 
 import 'package:moriko/features/search/presentation/screen/search_screen.dart';
@@ -69,4 +70,10 @@ class ChaptersScreenRoute extends GoRouteData {
 
   @override
   Widget build(context, state) => ChaptersScreen($extra);
+}
+
+@TypedGoRoute<HistoryScreenRoute>(path: '/history')
+class HistoryScreenRoute extends GoRouteData {
+  @override
+  Widget build(context, state) => const HistoryScreen();
 }
