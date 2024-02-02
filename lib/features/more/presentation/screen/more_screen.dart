@@ -1,8 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moriko/config/config.dart';
 import 'package:moriko/core/core.dart';
 import 'package:moriko/features/shared/presentation/widgets/nav_bar.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class MoreScreen extends StatefulWidget {
@@ -23,38 +25,51 @@ class _MoreScreenState extends State<MoreScreen> {
         backgroundColor: transparent,
         elevation: 0,
         centerTitle: false,
-        title: Text('More', style: poppins()),
+        title: Text(
+          'More',
+          style: poppins(),
+        ),
       ),
       body: Column(
         children: [
           Container(
             height: 100,
             alignment: Alignment.center,
-            child: Assets.meta.logo.image(height: 70),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: Assets.icons.game.image(
+                height: 70,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           const Divider(),
           MorePageTile(
-            icon: Icons.dark_mode,
-            title: 'Dark More',
-            trailing: Consumer(builder: (context, ref, child) {
-              final themeMode = ref.watch(currentThemeProvider);
-              return Visibility(
-                visible: themeMode != ThemeMode.system,
-                child: Switch(
-                  value: themeMode == ThemeMode.light,
-                  onChanged: (v) {
-                    ref.read(currentThemeProvider.notifier).toggle();
-                  },
-                ),
-              );
-            }),
+            icon: PhosphorIconsRegular.moonStars,
+            title: 'Dark Mode',
+            trailing: Consumer(
+              builder: (context, ref, child) {
+                final themeMode = ref.watch(currentThemeProvider);
+                return Visibility(
+                  visible: themeMode != ThemeMode.system,
+                  child: CupertinoSwitch(
+                    activeColor: Colors.indigo,
+                    value: themeMode != ThemeMode.light,
+                    onChanged: (v) {
+                      ref.read(currentThemeProvider.notifier).toggle();
+                    },
+                  ),
+                );
+              },
+            ),
           ),
           MorePageTile(
-            icon: Icons.data_saver_on_outlined,
+            icon: PhosphorIconsRegular.hardDrives,
             title: 'Data Saver',
             trailing: Consumer(builder: (context, ref, child) {
               final dataSaverEnabled = ref.watch(dataSaverModeProvider);
-              return Switch(
+              return CupertinoSwitch(
+                activeColor: Colors.indigo,
                 value: dataSaverEnabled,
                 onChanged: (v) {
                   ref.read(dataSaverModeProvider.notifier).toggle();
@@ -64,19 +79,19 @@ class _MoreScreenState extends State<MoreScreen> {
           ),
           const Divider(),
           const MorePageTile(
-            icon: Icons.history,
+            icon: PhosphorIconsRegular.detective,
             title: 'History',
           ),
           const MorePageTile(
-            icon: Icons.settings,
+            icon: PhosphorIconsRegular.gear,
             title: 'Settings',
           ),
           const MorePageTile(
-            icon: Icons.insert_drive_file,
+            icon: PhosphorIconsRegular.appWindow,
             title: 'About',
           ),
           const MorePageTile(
-            icon: Icons.error,
+            icon: PhosphorIconsRegular.warning,
             title: 'Disclaimer',
           ),
           const SizedBox(height: 20),

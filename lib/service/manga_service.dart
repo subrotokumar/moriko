@@ -28,7 +28,7 @@ abstract class MangaService {
     @Path('coverId') String coverId,
   );
 
-  @GET('/manga/{mangaId}/feed?translatedLanguage[]=en')
+  @GET('/manga/{mangaId}/feed?translatedLanguage[]=en&order[chapter]=asc')
   Future<HttpResponse<ChapterListRes>> chapterList(
       @Path('mangaId') String mangaId);
 

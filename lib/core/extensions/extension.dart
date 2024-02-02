@@ -8,6 +8,7 @@ extension BuildCOntextX on BuildContext {
   double get width => getSize.width;
   ThemeData get theme => Theme.of(this);
   void removeFocus() => FocusScope.of(this).requestFocus();
+  bool get isDarkMode => Theme.of(this).brightness == Brightness.dark;
   NavigatorState get navigator => Navigator.of(this);
   ScaffoldMessengerState get scaffoldMessenger => ScaffoldMessenger.of(this);
 }
@@ -20,13 +21,11 @@ extension StringExtension on String {
 
 extension SharedPreferenceExtension on SharedPreferences {
   ThemeMode get currentThemeMode {
-    return getBool('darkModeEnabled') ?? true
-        ? ThemeMode.dark
-        : ThemeMode.light;
+    return getBool('isDarkMode') ?? false ? ThemeMode.dark : ThemeMode.light;
   }
 
   Future<ThemeMode> toggleThemeMode() async {
-    await setBool('darkModeEnabled', !(getBool('darkModeEnabled') ?? true));
+    await setBool('isDarkMode', !(getBool('isDarkMode') ?? false));
     return currentThemeMode;
   }
 

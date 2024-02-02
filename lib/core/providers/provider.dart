@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:moriko/core/core.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:moriko/core/core.dart';
 
 part 'provider.g.dart';
 
@@ -36,12 +40,22 @@ class DataSaverMode extends _$DataSaverMode {
 }
 
 @Riverpod(keepAlive: true)
-Dio dio(DioRef ref, {bool logger = false}) {
-  final dio = Dio();
-  if (logger) dio.interceptors.add(PrettyDioLogger());
+Dio dio(DioRef ref, {bool useIsolate = false}) {
+  final dio = Dio()..interceptors.add(PrettyDioLogger());
+  if (useIsolate) {
+    dio.transformer = BackgroundTransformer()..jsonDecodeCallback = parseJson;
+  }
   return dio;
 }
 
 @Riverpod(keepAlive: true)
 Future<SharedPreferences> sharedPref(SharedPrefRef ref) async =>
     await SharedPreferences.getInstance();
+
+Map<String, dynamic> _parseAndDecode(String response) {
+  return jsonDecode(response) as Map<String, dynamic>;
+}
+
+Future<Map<String, dynamic>> parseJson(String text) {
+  return compute(_parseAndDecode, text);
+}

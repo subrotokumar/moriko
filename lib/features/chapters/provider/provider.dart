@@ -18,8 +18,7 @@ Future<Map<String, dynamic>> parseJson(String text) {
 @Riverpod(keepAlive: true)
 Future<List<CoverListResData>> chapterListResData(ChapterListResDataRef ref,
     {required String mangaId}) async {
-  final dio = ref.watch(dioProvider());
-  // dio.transformer = (DefaultTransformer()..jsonDecodeCallback = parseJson);
+  final dio = ref.watch(dioProvider(useIsolate: true));
   final res = await ref
       .watch(mangaServiceClientProvider(dio: dio))
       .chapterList(mangaId);

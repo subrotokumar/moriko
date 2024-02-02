@@ -26,7 +26,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
       logger.e(e);
     }
     Future.delayed(
-      2.seconds,
+      3.seconds,
       () => HomeScreenRoute().pushReplacement(context),
     );
   }
@@ -34,12 +34,42 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Center(
         child: TweenAnimationBuilder(
-          tween: Tween<double>(begin: 0, end: 250),
-          duration: 4.seconds,
-          builder: (context, value, child) =>
-              Assets.meta.logo.image(width: value),
+          tween: Tween<double>(begin: 0, end: 150),
+          duration: 2.seconds,
+          builder: (context, value, child) {
+            return SizedBox(
+              height: 150,
+              width: 150,
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.center,
+                    child: Assets.icons.game.image(
+                      width: value,
+                      height: value,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  Visibility(
+                    visible: value >= 150,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Text(
+                        'MORIKO',
+                        style: poppins(
+                          fontSize: 22.5,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ),
+                  ).animate().scale(duration: 1.seconds),
+                ],
+              ),
+            );
+          },
         ),
       ),
     );

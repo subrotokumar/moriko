@@ -2,6 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
 import 'package:moriko/core/core.dart';
 import 'package:moriko/features/reader/presentation/widgets/horizontal_reader.dart';
 import 'package:moriko/features/reader/presentation/widgets/reader_bottom_navbar.dart';
@@ -45,8 +48,9 @@ class _ReaderScreenState extends ConsumerState<ReaderScreen> {
                 return chapterPages.when(
                   error: (e, s) {
                     return const Center(
-                      child:
-                          Text('Request returned an Invalid staus code of 404'),
+                      child: Text(
+                        'Request returned an Invalid staus code of 404',
+                      ),
                     );
                   },
                   loading: () => const Center(
@@ -186,10 +190,14 @@ class ReaderAppBar extends StatelessWidget {
           visible: visible,
           child: AppBar(
             backgroundColor: theme.appBarTheme.backgroundColor,
+            leading: IconButton(
+              onPressed: () => context.pop(),
+              icon: const Icon(PhosphorIconsBold.arrowUpLeft),
+            ),
             actions: [
               IconButton(
                 onPressed: () {},
-                icon: const Icon(Icons.bookmark),
+                icon: const Icon(PhosphorIconsRegular.bookmarks),
               )
             ],
           ),

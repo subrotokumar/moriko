@@ -12,11 +12,17 @@ import 'package:flutter/widgets.dart';
 class $AssetsIconsGen {
   const $AssetsIconsGen();
 
+  /// File path: assets/icons/game.png
+  AssetGenImage get game => const AssetGenImage('assets/icons/game.png');
+
   /// File path: assets/icons/github.png
   AssetGenImage get github => const AssetGenImage('assets/icons/github.png');
 
+  /// File path: assets/icons/wolf.png
+  AssetGenImage get wolf => const AssetGenImage('assets/icons/wolf.png');
+
   /// List of all assets
-  List<AssetGenImage> get values => [github];
+  List<AssetGenImage> get values => [game, github, wolf];
 }
 
 class $AssetsMetaGen {

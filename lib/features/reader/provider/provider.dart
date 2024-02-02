@@ -9,7 +9,7 @@ part 'provider.g.dart';
 @Riverpod()
 Future<ChapterPagesRes> chapterPagesRes(ChapterPagesResRef ref,
     {required String chapterId}) async {
-  final dio = ref.watch(dioProvider(logger: true));
+  final dio = ref.watch(dioProvider());
   final res = await ref
       .watch(mangaServiceClientProvider(dio: dio))
       .chapterPages(chapterId);

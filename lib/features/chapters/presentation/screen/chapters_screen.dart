@@ -2,6 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
+
 import 'package:moriko/config/config.dart';
 import 'package:moriko/core/core.dart';
 import 'package:moriko/features/chapters/provider/provider.dart';
@@ -23,11 +25,8 @@ class ChaptersScreenState extends ConsumerState<ChaptersScreen> {
   Widget build(BuildContext context) {
     final theme = context.theme;
     final width = context.width;
+    final isDarkMode = context.isDarkMode;
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        child: const Icon(Icons.play_arrow),
-      ),
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -38,15 +37,15 @@ class ChaptersScreenState extends ConsumerState<ChaptersScreen> {
             actions: [
               IconButton(
                 onPressed: () {},
-                icon: const Icon(Icons.share, size: 20),
+                icon: const Icon(PhosphorIconsRegular.shareFat, size: 20),
               ),
               IconButton(
                 onPressed: () {},
-                icon: const Icon(Icons.more_vert_rounded),
+                icon: const Icon(PhosphorIconsRegular.squaresFour),
               ),
               IconButton(
                 onPressed: () {},
-                icon: const Icon(Icons.library_add),
+                icon: const Icon(PhosphorIconsRegular.bookmarkSimple),
               ),
               const SizedBox(width: 8),
             ],
@@ -137,7 +136,7 @@ class ChaptersScreenState extends ConsumerState<ChaptersScreen> {
                     child: Container(
                       margin: const EdgeInsets.symmetric(vertical: 20),
                       width: context.width,
-                      height: 30,
+                      height: 28,
                       child: ListView.separated(
                         padding: const EdgeInsets.symmetric(horizontal: 20),
                         shrinkWrap: true,
@@ -156,10 +155,21 @@ class ChaptersScreenState extends ConsumerState<ChaptersScreen> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 8, vertical: 4),
                             decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
                               color: theme.inputDecorationTheme.fillColor!
-                                  .withOpacity(0.9),
+                                  .withOpacity(0.4),
+                              border: Border.all(
+                                color: Colors.black,
+                                width: 0.5,
+                              ),
                             ),
-                            child: Text(tag),
+                            child: Text(
+                              tag,
+                              style: poppins(
+                                fontSize: 13,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           );
                         },
                       ),
@@ -177,7 +187,10 @@ class ChaptersScreenState extends ConsumerState<ChaptersScreen> {
                 width: context.width,
                 child: Text(
                   widget.searchedManga.attributes.description?.en ?? '',
-                  style: poppins(),
+                  textAlign: TextAlign.justify,
+                  style: poppins(
+                    fontSize: 13,
+                  ),
                 ),
               ),
             ),
@@ -185,7 +198,8 @@ class ChaptersScreenState extends ConsumerState<ChaptersScreen> {
           SliverToBoxAdapter(
             child: Consumer(builder: (ctx, ref, child) {
               final chapterListResData = ref.watch(
-                  ChapterListResDataProvider(mangaId: widget.searchedManga.id));
+                ChapterListResDataProvider(mangaId: widget.searchedManga.id),
+              );
               return chapterListResData.when(error: (e, s) {
                 logger.f(s);
                 return Text(s.toString());
@@ -210,40 +224,58 @@ class ChaptersScreenState extends ConsumerState<ChaptersScreen> {
                   itemCount: data.length,
                   itemBuilder: (ctx, index) {
                     final chapterItem = data.elementAt(index);
-                    return ListTile(
-                      dense: true,
-                      onTap: () {
-                        Navigator.of(context).push(MaterialPageRoute(
-                          builder: (ctx) => ReaderScreen(chapterItem.id),
-                        ));
-                      },
-                      leading: Chip(
-                          label: Text(chapterItem.attributes.chapter ?? '?')),
-                      title: Builder(builder: (context) {
-                        final title = chapterItem.attributes.title;
-                        if (title != null && title.isNotEmpty) {
-                          return Text(chapterItem.attributes.title ??
-                              'Chapter ${chapterItem.attributes.chapter ?? '?'}');
-                        } else {
-                          return Text(
+                    final title = chapterItem.attributes.title;
+                    final date = DateTime.tryParse(
+                      chapterItem.attributes.publishAt ?? '',
+                    );
+                    return Container(
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 20, vertical: 8),
+                      child: ListTile(
+                        dense: true,
+                        tileColor: isDarkMode ? Colors.white12 : Colors.white,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (ctx) => ReaderScreen(chapterItem.id),
+                          ));
+                        },
+                        leading: Text(
+                          chapterItem.attributes.chapter ?? '?',
+                          style: poppins(
+                            fontSize: 15,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        title: Visibility(
+                          visible: title != null && title.isNotEmpty,
+                          replacement: Text(
                             'Chapter ${chapterItem.attributes.chapter ?? '?'}',
-                          );
-                        }
-                      }),
-                      subtitle: Builder(builder: (context) {
-                        final date = DateTime.tryParse(
-                            chapterItem.attributes.publishAt ?? '');
-                        if (date == null)
-                          return const SizedBox();
-                        else {
-                          final d = date.toLocal().toString();
-                          return Text(d.substring(0, d.indexOf(' ')));
-                        }
-                      }),
-                      trailing: Icon(
-                        Icons.downloading,
-                        size: 25,
-                        color: theme.inputDecorationTheme.fillColor,
+                            style: poppins(
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          child: Text(
+                            chapterItem.attributes.title ??
+                                'Chapter ${chapterItem.attributes.chapter ?? '?'}',
+                            style: poppins(fontWeight: FontWeight.w500),
+                          ),
+                        ),
+                        subtitle: Builder(builder: (context) {
+                          if (date == null) {
+                            return const SizedBox();
+                          } else {
+                            final d = date.toLocal().toString();
+                            return Text(d.substring(0, d.indexOf(' ')));
+                          }
+                        }),
+                        trailing: Icon(
+                          Icons.downloading,
+                          size: 25,
+                          color: theme.inputDecorationTheme.fillColor,
+                        ),
                       ),
                     );
                   },

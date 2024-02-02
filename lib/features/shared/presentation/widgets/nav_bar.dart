@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:moriko/config/routes/typed_route.dart';
 import 'package:moriko/features/shared/provider/navigation_bar.dart';
+import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 class BottomNavBar extends ConsumerWidget {
   const BottomNavBar({super.key});
@@ -29,15 +30,18 @@ class BottomNavBar extends ConsumerWidget {
       },
       destinations: const [
         NavigationDestination(
-          icon: Icon(Icons.book_sharp),
-          label: 'Library',
-        ),
-        NavigationDestination(
-          icon: Icon(Icons.home_filled),
+          icon: Icon(PhosphorIconsRegular.magnifyingGlass),
+          selectedIcon: Icon(PhosphorIconsFill.magnifyingGlass),
           label: 'Search',
         ),
         NavigationDestination(
-          icon: Icon(Icons.more_horiz_outlined),
+          icon: Icon(PhosphorIconsRegular.atom),
+          selectedIcon: Icon(PhosphorIconsFill.atom),
+          label: 'Library',
+        ),
+        NavigationDestination(
+          icon: Icon(PhosphorIconsRegular.squaresFour),
+          selectedIcon: Icon(PhosphorIconsFill.squaresFour),
           label: 'More',
         )
       ],
